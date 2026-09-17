@@ -425,7 +425,7 @@ function startGame(animal, isRandom = false) {
         ? `랜덤 도전 - ${animal.name}` : `${animal.table}단 - ${animal.name}`;
     document.getElementById('play-emoji').textContent = isRandom ? '🎲' : animal.emoji;
 
-    document.getElementById('victory-card').classList.add('hidden');
+    document.getElementById('victory-overlay').classList.add('hidden');
     renderPalette();
     setCoach('coach-default', '팔레트에서 정답 물감을 고른 다음, 그림의 문제를 눌러요!');
     updateProgressBar();
@@ -633,8 +633,7 @@ function triggerVictory() {
     document.getElementById('victory-stars').textContent = starString(stars);
     document.getElementById('victory-name').textContent = `${animal.name} 완성!`;
     document.getElementById('victory-record').classList.toggle('hidden', !isNewRecord);
-    document.getElementById('victory-card').classList.remove('hidden');
-    document.getElementById('victory-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('victory-overlay').classList.remove('hidden');
 
     if (typeof confetti === 'function') {
         confetti({ particleCount: 110, spread: 75, origin: { y: 0.6 } });
@@ -643,6 +642,12 @@ function triggerVictory() {
             confetti({ particleCount: 60, angle: 120, spread: 55, origin: { x: 1 } });
         }, 320);
     }
+}
+
+// 완성 그림을 크게 보고 싶을 때 축하 카드를 닫는다
+function closeVictory() {
+    playSound('click');
+    document.getElementById('victory-overlay').classList.add('hidden');
 }
 
 // ============================================================

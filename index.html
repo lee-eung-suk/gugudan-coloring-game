@@ -57,6 +57,8 @@
                     <span class="progress-label">🎨</span>
                     <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
                     <div id="progress-text" class="progress-text">0 / 7</div>
+                    <button class="btn btn-yellow btn-mini" onclick="giveHint()">💡 힌트</button>
+                    <button class="btn btn-gray btn-mini" onclick="resetGame()">🔄 다시</button>
                 </div>
 
                 <div class="svg-wrap" id="svg-container"></div>
@@ -66,21 +68,19 @@
                 </div>
 
                 <div id="palette-grid" class="palette-grid"></div>
-
-                <div class="play-actions">
-                    <button class="btn btn-yellow btn-sm" onclick="giveHint()">💡 힌트</button>
-                    <button class="btn btn-gray btn-sm" onclick="resetGame()">🔄 다시하기</button>
-                </div>
             </div>
 
-            <div id="victory-card" class="victory-card hidden">
-                <div id="victory-record" class="victory-record hidden">🏅 새 기록!</div>
-                <div id="victory-art" class="victory-art"></div>
-                <h2 id="victory-name">완성!</h2>
-                <div id="victory-stars" class="victory-stars">★★★</div>
-                <div class="victory-actions">
-                    <button class="btn btn-yellow" onclick="goSelect()">다른 동물 하기</button>
-                    <button class="btn btn-blue" onclick="goBook()">📖 도감 보기</button>
+            <div id="victory-overlay" class="victory-overlay hidden">
+                <div class="victory-card">
+                    <button class="victory-close" onclick="closeVictory()" aria-label="닫기">✕</button>
+                    <div id="victory-record" class="victory-record hidden">🏅 새 기록!</div>
+                    <div id="victory-art" class="victory-art"></div>
+                    <h2 id="victory-name">완성!</h2>
+                    <div id="victory-stars" class="victory-stars">★★★</div>
+                    <div class="victory-actions">
+                        <button class="btn btn-yellow" onclick="goSelect()">다른 동물 하기</button>
+                        <button class="btn btn-blue" onclick="goBook()">📖 도감 보기</button>
+                    </div>
                 </div>
             </div>
         </section>
