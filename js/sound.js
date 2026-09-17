@@ -49,6 +49,24 @@ function playSound(type) {
             tone(ctx, { freq: 440, start: now, dur: 0.09, type: 'sine', gain: 0.2, glideTo: 880 });
         } else if (type === 'click') {
             tone(ctx, { freq: 300, start: now, dur: 0.06, type: 'square', gain: 0.12, glideTo: 500 });
+        } else if (type === 'brush') {
+            // 붓으로 슥 칠하는 소리
+            const noise = ctx.createBufferSource();
+            const len = Math.floor(ctx.sampleRate * 0.16);
+            const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+            noise.buffer = buf;
+            const bp = ctx.createBiquadFilter();
+            bp.type = 'bandpass';
+            bp.frequency.setValueAtTime(900, now);
+            bp.frequency.exponentialRampToValueAtTime(2400, now + 0.16);
+            const g = ctx.createGain();
+            g.gain.setValueAtTime(0.18, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+            noise.connect(bp); bp.connect(g); g.connect(ctx.destination);
+            noise.start(now);
+            noise.stop(now + 0.18);
         } else if (type === 'stamp') {
             tone(ctx, { freq: 180, start: now, dur: 0.15, type: 'sine', gain: 0.3, glideTo: 90 });
         } else if (type === 'victory') {
